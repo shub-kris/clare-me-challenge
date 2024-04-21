@@ -35,7 +35,18 @@ You can then send a `string` or a List of `string` to the `/predict` endpoint to
 
 ![Alt text](image-1.png)
 
-So, one can now use this API in their NodeJS/TypeScript backend to get the scenario number for a given conversation. 
+So, one can now use this API in their NodeJS/TypeScript backend to get the scenario number for a given conversation.
+
+**Note:** The API returns the class and the probability of the class for each input conversation which can be used to make more informed decisions. I am aware that I was asked to return an integer indicating the scenario number, but I thought it would be more useful to return the class and the probability of the class for each input conversation.
+With some small change in the code, one can easily return the integer indicating the scenario number instead of the class and the probability of the class.
+
+The predict function in the `app/main.py` file would look like this:
+```
+with torch.no_grad():
+    tokenized_input = tokenizer(text, padding=True, truncation=True, max_length=512, return_tensors="pt").to(device)
+    logits = model(**tokenized_input).logits
+    prediction = torch.argmax(logits, dim=1).tolist()
+```
 
 ### What could be improved?
 

@@ -36,3 +36,5 @@ The performance was evaluated on the validation set using these metrics.
 
 - As the dataset was small and very repetitive, I am sure that the model is overfitting. A better model would have come out if the dataset was more diverse and complex. 
 
+- Instead of using Notebook for training, I would have used a script to train the model. This would make it easier to run the training on different machines and environments. 
+
