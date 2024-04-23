@@ -1,14 +1,25 @@
-## Design a Conversational Chatbot
+## Design a System Architecture to transition between different stages of a conversation
 
-You can find an architecture diagram of the Chatbot below:
+You can find an architecture diagram  below:
+
+![Alt text](image.png)
 
 
 ### Introduction
-- Any user interacts with the Chatbot by sending a message through the Chat Interface (UI). The Chat interface then passes this message to an intelligent system that processes the message and generates a response. The response is then sent back to the Chat Interface, which displays the response to the user.
+- Any user interacts with the system by sending a message through the Chat Interface (UI). The Chat interface then passes this message to the backend server. The backend server interacts with different components to generate a response. The response is then sent back to the Chat Interface, which displays the response to the user.
 
-- Inside the intelligent system, there are multiple components that work together to generate the response. The first component is the Conversation Stage Classifier, which classifies the message into one of the conversation stages. The conversation stages are the different stages of the conversation, such as an introduction, a mood-check, a reflection, an exercise, and a wrap-up, etc. The Conversation Stage Classifier uses a Machine/Deep Learning model to classify the message into one of the conversation stages.
+- At the core of the system is the Agent, an AI Engine that has access to tools like Conversation Stage Classifier, History (Memory) and Response Generator. The Agent utilizes these tools to generate the response. The response is then sent back to the Chat Interface, which displays the response to the user.
 
-- The next component is the Language Model, which generates the response based on the conversation stage. The Language Model is a Deep Learning model that is trained on a large corpus of text data to generate human-like responses. The Language Model takes the conversation stage and the message as input and generates the response as output. While generating the response, the Language Model can also use the context aka memory from the previous messages to generate a more coherent response. Each of the stage has its own Agent (Language Model) to generate the response. 
+- Through the UI, the user can provide feedback on the response. The feedback is logged in the Logging component. The feedback data is then used to train and fine-tune the Agent to improve the response generation over time.
+
+### Components 
+- Agent: It is the core component of the system. The Agent gets to decide which tool to utilize at a certain time to generate the response. 
+
+- Logging: The Logging component logs all the messages and responses in a database or any other kind of memoery (discussed in section Memory Management). This is useful for debugging and monitoring the performance of the Chatbot. The Logging component can also be used to collect feedback from the users to improve the Chatbot.
+
+- Conversation Stage Classifier: The Conversation Stage Classifier classifies the message into one of the conversation stages. The Conversation Stage Classifier uses a Deep Learning model(LLM) to classify the message into one of the conversation stages.
+
+- Response Generator: It is a Large Language Model (LLM) that generates the response based on stage, query and context. The Response Generator can also use the context from the previous messages to generate a more coherent response. 
 
 
 ### Memory Management
@@ -25,7 +36,7 @@ As we know Large Language Models are stateless and do not have memory. So, we ne
 
 ### Learning from Feedback to improve the Chatbot
 
-- Collect Feedback: After each interaction, provide users with the option to rate the chatbot's response as good or bad, or on a numerical scale. This can be done directly within the chat interface. You might also consider allowing users to leave comments for more detailed feedback. We will be logging the (query, response, feedback) in a database or with other tools like LangSmith that store each and every interaction with the LLM. 
+- Collect Feedback: After each interaction, provide users with the option to rate the system's response as good or bad, or on a numerical scale. You might also consider allowing users to leave comments for more detailed feedback. We will be logging the (query, response, feedback) in a database or with other tools like LangSmith that store each and every interaction with the LLM. 
 
 - Train with Feedback: Use the feedback data to train and fine-tune your agent aka LLM. One leverage techniques like RLHF (Reinforcement Learning with Human Feedback) to train the LLM. The model is rewarded for responses that received good ratings and penalized for those that received poor ratings. Over time, this helps the chatbot to "learn" to give more responses that are similar to those rated well, and fewer responses similar to those rated poorly. 
 
