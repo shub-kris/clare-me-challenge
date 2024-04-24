@@ -2,7 +2,7 @@
 
 You can find an architecture diagram  below:
 
-![Alt text](image.png)
+![Alt text](architecture_diagram.svg)
 
 
 ### Introduction
@@ -13,7 +13,7 @@ You can find an architecture diagram  below:
 - Through the UI, the user can provide feedback on the response. The feedback is logged in the Logging component. The feedback data is then used to train and fine-tune the Agent to improve the response generation over time.
 
 ### Components 
-- Agent: It is the core component of the system. The Agent gets to decide which tool to utilize at a certain time to generate the response. 
+- Agent: It is the core component of the system. The Agent gets to decide which tool to utilize at a certain time to generate the response. It is powered by a Large Language Model (LLM) and can intelligently switch between different tools to generate the response.
 
 - Logging: The Logging component logs all the messages and responses in a database or any other kind of memoery (discussed in section Memory Management). This is useful for debugging and monitoring the performance of the Chatbot. The Logging component can also be used to collect feedback from the users to improve the Chatbot.
 
